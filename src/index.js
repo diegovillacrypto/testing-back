@@ -29,8 +29,8 @@ app.post('/recordWallet', async (req,res) => {
 });
 
 app.get('/getWallet', async (req,res) => {
-    const { wallet_address } = req.body;
-    try {
+  const { wallet_address } = req.query; 
+  try {
       const wallet = await db.one('SELECT wallet_id FROM Wallets WHERE wallet_address = $1', wallet_address);  
       const get = await getDailyValuesForWallet(wallet);
       res.json(get);
