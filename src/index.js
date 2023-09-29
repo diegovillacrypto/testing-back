@@ -55,32 +55,6 @@ app.listen(PORT);
 
 
 
-/*
-
-// Ruta para registrar una nueva billetera
-app.post('/wallets', async (req, res) => {
-  const { wallet_address } = req.body;
-  try {
-    const newWallet = await addWallet(wallet_address);
-    res.json(newWallet);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Ruta para registrar un valor diario
-app.post('/valores-diarios', async (req, res) => {
-  const { wallet_address, fecha, valor } = req.body;
-  try {
-    const newValue = await addDailyValue(wallet_address, fecha, valor);
-    res.json(newValue);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-*/
-
 
 
 
