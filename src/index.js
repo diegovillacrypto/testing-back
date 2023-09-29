@@ -11,9 +11,8 @@ app.use(express.json());
 
 app.post('/recordWallet', async (req,res) => {
     const { wallet_address, fecha,valor } = req.body;
-    const isRegistered = await db.oneOrNone('SELECT * FROM Wallets WHERE wallet_address = $1', wallet_Address);
+    const isRegistered = await db.oneOrNone('SELECT * FROM Wallets WHERE wallet_address = $1', wallet_address);
     try {
-
       if (isRegistered) {
         const newValue = await addDailyValue(wallet_address, fecha, valor);
         res.json(newValue);
