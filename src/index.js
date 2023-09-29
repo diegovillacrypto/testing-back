@@ -1,10 +1,15 @@
 import { express } from 'express';
 import { addWallet, addDailyValue, getDailyValuesForWallet, db } from '../db/db.js';
+import { PORT } from './config.js';
 
 const app = express();
 
 // Middleware para parsear JSON
 app.use(express.json());
+
+app.get('/',(req,res) => {
+  console.log("Running");
+})
 
 app.post('/recordWallet', async (req,res) => {
     const { wallet_address, fecha,valor } = req.body;
@@ -54,7 +59,7 @@ app.post('/valores-diarios', async (req, res) => {
 
 */
 
-app.listen(() => {
+app.listen(PORT,() => {
   console.log(`Servidor en funcionamiento`);
 });
 
