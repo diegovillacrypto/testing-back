@@ -12,8 +12,9 @@ app.use(express.json());
 app.post('/recordWallet', async (req,res) => {
     const { wallet_address, fecha,valor } = req.body;
     const isRegistered = await db.oneOrNone('SELECT * FROM Wallets WHERE wallet_address = $1', wallet_Address);
+    try {
 
-    if (isRegistered) {
+      if (isRegistered) {
         const newValue = await addDailyValue(wallet_address, fecha, valor);
         res.json(newValue);
     } else {
@@ -21,6 +22,11 @@ app.post('/recordWallet', async (req,res) => {
         const newValue = await addDailyValue(wallet_address, fecha, valor);
         res.json(newValue,newWallet);
     }
+      
+    } catch (error) {
+      res.status(503).json({ error: error.message });
+    }
+
 });
 
 app.get('/getWallet', async (req,res) => {
