@@ -19,7 +19,7 @@ app.post('/recordWallet', async (req,res) => {
     } else {
         const newWallet = await addWallet(wallet_address);
         const newValue = await addDailyValue(wallet_address, fecha, valor);
-        res.json(newValue,newWallet);
+        res.json({newValue,newWallet});
     }
       
     } catch (error) {
@@ -29,11 +29,9 @@ app.post('/recordWallet', async (req,res) => {
 });
 
 app.get('/getWallet', async (req,res) => {
-  const data = JSON.parse(req.query.data);
-  //const wallet_address = req.query;
+  const wallet_address = req.query;
   try {
-      const wallet = await db.one('SELECT wallet_id FROM Wallets WHERE wallet_address = $1', data.wallet_address); 
-      console.log(wallet.wallet_id); 
+      const wallet = await db.one('SELECT wallet_id FROM Wallets WHERE wallet_address = $1', wallet_address.wallet_address); 
       const get = await getDailyValuesForWallet(wallet.wallet_id);
       res.json(get);
     } catch (error) {
