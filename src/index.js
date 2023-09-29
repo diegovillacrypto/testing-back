@@ -1,5 +1,5 @@
-import { express } from 'express';
-import { addWallet, addDailyValue, getDailyValuesForWallet, db } from '../db/db.js';
+import express  from 'express';
+import { addWallet, addDailyValue, getDailyValuesForWallet, db } from './db.js';
 import { PORT } from './config.js';
 
 const app = express();

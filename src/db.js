@@ -1,5 +1,5 @@
 import pgp from 'pg-promise';
-import { DATABASE_URL } from '../src/config';
+import { DATABASE_URL } from './config.js';
 
 const db = pgp()(DATABASE_URL);
 
