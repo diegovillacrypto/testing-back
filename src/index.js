@@ -30,7 +30,7 @@ app.get('/getWallet', async (req,res) => {
       const get = await getDailyValuesForWallet(wallet);
       res.json(get);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(503).json({ error: error.message });
     }
 });
 
