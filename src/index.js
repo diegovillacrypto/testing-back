@@ -34,7 +34,7 @@ app.get('/getWallet', async (req,res) => {
       const wallet = await db.one('SELECT wallet_id FROM Wallets WHERE wallet_address = $1', wallet_address);  
       const get = await getDailyValuesForWallet(wallet.wallet_id);
       res.json(get);
-      res.json(wallet);
+      res.json(wallet.wallet_id);
     } catch (error) {
       res.status(503).json({ error: error.message });
     }
