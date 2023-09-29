@@ -1,9 +1,21 @@
 import express  from 'express';
 import { addWallet, addDailyValue, getDailyValuesForWallet, db } from './db.js';
 import { PORT } from './config.js';
+import { rateLimit } from 'express-rate-limit';
+
+const limiter = rateLimit({
+	windowMs: 7 * 60 * 1000, // 7 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  message : "Too many request"
+})
+
+
 
 const app = express();
-app.listen(PORT);
+app.use(limiter);
+
 // Middleware para parsear JSON
 app.use(express.json());
 
@@ -38,6 +50,9 @@ app.get('/getWallet', async (req,res) => {
       res.status(503).json({ error: error.message });
     }
 });
+
+app.listen(PORT);
+
 
 
 /*
